@@ -1,0 +1,9 @@
+{
+  "devDependencies": {
+    "daisyui": "^4.12.2"
+  },
+  "dependencies": {
+    "@sira-ui/tailwind": "^0.9.1",
+    "lodash": "^4.17.21"
+  }
+}

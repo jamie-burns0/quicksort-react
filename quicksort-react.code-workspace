@@ -1,0 +1,13 @@
+{
+        "folders": [
+                {
+                        "path": "quicksort-react"
+                }
+        ],
+        "settings": {
+                "java.project.explorer.showNonJavaResources": true,
+                "java.dependency.packagePresentation": "flat",
+                "java.configuration.updateBuildConfiguration": "disabled",
+                "editor.defaultFormatter": "esbenp.prettier-vscode"
+        }
+}
