@@ -6,14 +6,13 @@ interface QuicksortDataGeneratorProps {
     onQuicksortDataGeneration: (value: number[]) => void;
 }
 
-const QuicksortDataGenerator = ({onQuicksortDataGeneration}: QuicksortDataGeneratorProps) => {
+const QuicksortGenerateDataPanel = ({onQuicksortDataGeneration}: QuicksortDataGeneratorProps) => {
 
     const [numberOfNumbers, setNumberOfNumbers] = useState<number>(100);
     const [lowerBound, setLowerBound] = useState<number>(1);
     const [upperBound, setUpperBound] = useState<number>(100);
     
     const handleOnClick = () => {
-        console.log(`handleOnClick: ${numberOfNumbers}, ${lowerBound}, ${upperBound}`);
         
         const n = numberOfNumbers;
         const lb = lowerBound;
@@ -70,4 +69,4 @@ const QuicksortDataGenerator = ({onQuicksortDataGeneration}: QuicksortDataGenera
     );
 }
 
-export default QuicksortDataGenerator;
+export default QuicksortGenerateDataPanel;
