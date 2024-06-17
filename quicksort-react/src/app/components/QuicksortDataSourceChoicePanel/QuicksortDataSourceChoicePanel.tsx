@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from "react";
-import { DataSourceChoice } from "../QuicksortPage/QuicksortPage";
+import DataSourceChoice from "../DataSourceChoice";
 
 type QuicksortDataSourceChoiceProps = {
     initialDataSourceChoice: DataSourceChoice;
@@ -12,7 +12,7 @@ const QuicksortDataSourceChoicePanel = ({initialDataSourceChoice, onSelectQuicks
 
     const [selectedQuicksortDataSourceChoiceButton, setSelectedQuicksortDataSourceChoiceButton] = useState<DataSourceChoice>(initialDataSourceChoice);
 
-    const handleOnClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         const choice = event.currentTarget.getAttribute('data-content') as DataSourceChoice;
         setSelectedQuicksortDataSourceChoiceButton(choice);
         onSelectQuicksortDataSourceChoice( choice );
@@ -26,7 +26,7 @@ const QuicksortDataSourceChoicePanel = ({initialDataSourceChoice, onSelectQuicks
                 data-content={DataSourceChoice.GenerateNumbers}
                 name="dataSource" 
                 type='button'
-                onClick={handleOnClick}>
+                onClick={handleClick}>
                 Generate the numbers for me
             </button>
             <button 
@@ -34,7 +34,7 @@ const QuicksortDataSourceChoicePanel = ({initialDataSourceChoice, onSelectQuicks
                 data-content={DataSourceChoice.ProvideNumbers} 
                 name="dataSource" 
                 type='button' 
-                onClick={handleOnClick}>
+                onClick={handleClick}>
                 I'll provide the numbers to sort
             </button>
         </div>

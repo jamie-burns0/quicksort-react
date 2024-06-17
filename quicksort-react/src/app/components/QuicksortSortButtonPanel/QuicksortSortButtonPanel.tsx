@@ -1,11 +1,12 @@
 interface QuicksortSortButtonPanelProps {
     isEnabled: boolean;
+    onSortButtonClicked: () => void;
 }
 
-const QuicksortSortButtonPanel = ({isEnabled}: QuicksortSortButtonPanelProps) => {
+const QuicksortSortButtonPanel = ({ isEnabled, onSortButtonClicked }: QuicksortSortButtonPanelProps) => {
 
 const handleClick = () => {
-    console.log(`handleClick`);
+    onSortButtonClicked();
 }
 
   return (

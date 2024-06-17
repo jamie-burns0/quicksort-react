@@ -8,7 +8,8 @@ const QuicksortProvideDataPanel = ({onQuicksortDataProvided}: QuicksortProvideDa
     
     const [data, setData] = useState<string>('');
     
-    const handleChange = (value: string) => {
+    const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        const value = e.target.value;
         setData(value);
         const numbers = value.split(/[\s,]+/).map(Number);
         onQuicksortDataProvided(numbers);
@@ -21,7 +22,7 @@ const QuicksortProvideDataPanel = ({onQuicksortDataProvided}: QuicksortProvideDa
                 className='input h-96'
                 placeholder="Enter numbers separated by commas or spaces"
                 value={data}
-                onChange={e => handleChange(e.target.value)}
+                onChange={handleChange}
             />
         </div>
         </>

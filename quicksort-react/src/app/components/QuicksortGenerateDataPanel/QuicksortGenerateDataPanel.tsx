@@ -1,31 +1,21 @@
 'use client';
 
 import { useState } from "react";
+import GenerateDataParams from "../GenerateDataParams";
 
 interface QuicksortDataGeneratorProps {
-    onQuicksortDataGeneration: (value: number[]) => void;
+    onGenerateDataButtonClicked: (params: GenerateDataParams) => void;
 }
 
-const QuicksortGenerateDataPanel = ({onQuicksortDataGeneration}: QuicksortDataGeneratorProps) => {
+const QuicksortGenerateDataPanel = ({onGenerateDataButtonClicked}: QuicksortDataGeneratorProps) => {
 
     const [numberOfNumbers, setNumberOfNumbers] = useState<number>(100);
     const [lowerBound, setLowerBound] = useState<number>(1);
     const [upperBound, setUpperBound] = useState<number>(100);
     
-    const handleOnClick = () => {
-        
-        const n = numberOfNumbers;
-        const lb = lowerBound;
-        const up = upperBound;
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => setNumberOfNumbers(parseInt(e.target.value));
 
-        let arr: number[] = [];
-        
-        for(let i = 0; i < n; i++) {
-            arr.push(Math.floor(Math.random() * (up - lb + 1) + lb));
-        }
-
-        onQuicksortDataGeneration(arr);
-    }
+    const handleClick = () => onGenerateDataButtonClicked({numberOfNumbers, lowerBound, upperBound});
 
     return (
         <>
@@ -38,7 +28,7 @@ const QuicksortGenerateDataPanel = ({onQuicksortDataGeneration}: QuicksortDataGe
                     type='text'
                     inputMode='numeric'
                     value={numberOfNumbers}
-                    onChange={(e) => setNumberOfNumbers(parseInt(e.target.value))}
+                    onChange={handleChange}
                 />
                 <span> integers between </span>
                 <input
@@ -47,7 +37,7 @@ const QuicksortGenerateDataPanel = ({onQuicksortDataGeneration}: QuicksortDataGe
                     type='text'
                     inputMode='numeric'
                     value={lowerBound}
-                    onChange={(e) => setLowerBound(parseInt(e.target.value))}
+                    onChange={handleChange}
                 />
                 <span> and </span>
                 <input
@@ -60,7 +50,7 @@ const QuicksortGenerateDataPanel = ({onQuicksortDataGeneration}: QuicksortDataGe
                 />
                 <button
                     className="btn solid success ml-6"
-                    onClick={handleOnClick}>
+                    onClick={handleClick}>
                     Generate Data
                 </button>
                 </p>

@@ -7,11 +7,11 @@ import QuicksortProvideDataPanel from "../QuicksortProvideDataPanel/QuicksortPro
 import QuicksortGenerateDataPanel from "../QuicksortGenerateDataPanel/QuicksortGenerateDataPanel";
 import QuicksortGeneratedDataDisplay from "../QuicksortGeneratedDataDisplay/QuicksortGeneratedDataDisplay";
 import QuicksortSortButtonPanel from "../QuicksortSortButtonPanel/QuicksortSortButtonPanel";
-
-enum DataSourceChoice {
-    GenerateNumbers = 'generateNumbers',
-    ProvideNumbers = 'provideNumbers'
-}
+import QuicksortSortedDataPanel from "../QuicksortSortedDataPanel/QuicksortSortedDataPanel";
+import DataSourceChoice from "../DataSourceChoice";
+import GenerateDataParams from "../GenerateDataParams";
+import { quicksort } from "@/app/service/QuicksortService";
+import { generateData } from "@/app/service/GenerateDataService";
 
 const QuicksortPage = () => {
 
@@ -21,6 +21,7 @@ const QuicksortPage = () => {
 
     const [generatedData, setGeneratedData] = useState<number[]>([]);
     const [providedData, setProvidedData] = useState<number[]>([]);
+    const [sortedData, setSortedData] = useState<number[]>([]);
 
     const showQuicksortDataGeneratorPanel = () => {
         return DataSourceChoice.GenerateNumbers === quicksortDataSourceChoice;
@@ -28,6 +29,10 @@ const QuicksortPage = () => {
 
     const showQuicksortInputPanel = () => {
         return DataSourceChoice.ProvideNumbers === quicksortDataSourceChoice;
+    }
+
+    const showQuicksortSortedDataPanel = () => {
+        return isSortButtonEnabled() && sortedData.length > 0;
     }
 
     const haveGeneratedData = () => {
@@ -43,47 +48,53 @@ const QuicksortPage = () => {
                 ( DataSourceChoice.ProvideNumbers === quicksortDataSourceChoice && haveProvidedData() );
     }
 
+    const dataToSort = (): number[] => {
+
+        switch( quicksortDataSourceChoice ) {
+            case DataSourceChoice.GenerateNumbers:
+                return generatedData;
+            case DataSourceChoice.ProvideNumbers:
+                return providedData;
+            default:
+                return [];
+        }
+    }
+
     const generatedDataAsCommanSeparatedString = () => {
         return generatedData.join(', ');
     }
 
     const handleSelectQuicksortDataSourceChoice = (choice: DataSourceChoice) => {
-        console.log(`QuicksortPage: handleQuicksortDataSourceChoice: ${choice}`)
 
         if( quicksortDataSourceChoice === choice ) {
             return;
         }
 
         setQuicksortDataSourceChoice(choice);
-
-        if( DataSourceChoice.GenerateNumbers === choice ) {
-            setGeneratedData([]);
-        } else {
-            setProvidedData([]);
-        }
+        setGeneratedData([]);
+        setProvidedData([]);
+        setSortedData([]);
     }
 
-    const handleQuicksortDataGeneration = (generatedData: number[]) => {
-        console.log(`QuicksortPage: handleQuicksortDataGeneration: ${generatedData}`);
-        setGeneratedData(generatedData);
+    const handleGenerateDataButtonClicked = ( {numberOfNumbers, lowerBound, upperBound}: GenerateDataParams ) => {
+        setGeneratedData(generateData( {numberOfNumbers, lowerBound, upperBound}));
     }
 
-    const handleQuicksortDataProvided = (providedData: number[]) => {
-        console.log(`QuicksortPage: handleQuicksortDataProvided: ${providedData}`);
-        setProvidedData(providedData);
-    }
+    const handleQuicksortDataProvided = (providedData: number[]) => setProvidedData(providedData);
+
+    const handleSortButtonClicked = () => quicksort(dataToSort()).then(sd => setSortedData(sd));
    
     return (
         <>
             <QuicksortHeading />
             <QuicksortDataSourceChoicePanel initialDataSourceChoice={quicksortDataSourceChoice} onSelectQuicksortDataSourceChoice={ handleSelectQuicksortDataSourceChoice }/>
-            {showQuicksortDataGeneratorPanel() && <QuicksortGenerateDataPanel onQuicksortDataGeneration={ handleQuicksortDataGeneration }/>}
+            {showQuicksortDataGeneratorPanel() && <QuicksortGenerateDataPanel onGenerateDataButtonClicked={handleGenerateDataButtonClicked}/>}
             {showQuicksortDataGeneratorPanel() && haveGeneratedData() && <QuicksortGeneratedDataDisplay dataToDisplay={generatedDataAsCommanSeparatedString()} />}
             {showQuicksortInputPanel() && <QuicksortProvideDataPanel onQuicksortDataProvided={ handleQuicksortDataProvided }/>}
-            <QuicksortSortButtonPanel isEnabled={isSortButtonEnabled()}/>
+            <QuicksortSortButtonPanel isEnabled={isSortButtonEnabled()} onSortButtonClicked={ handleSortButtonClicked }/>
+            {showQuicksortSortedDataPanel() && <QuicksortSortedDataPanel sortedData={sortedData} />}
         </>
     );
 };
 
 export default QuicksortPage;
-export { DataSourceChoice };
