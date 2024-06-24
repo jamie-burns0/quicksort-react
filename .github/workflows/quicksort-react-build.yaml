@@ -13,6 +13,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20.13.1
+      - name: Print working dir
+        run: echo $(pwd)
+      - name: Print changed working dir
+        run: echo $(pwd)
+        working-directory: ./quicksort-react
       - name: Install npm dependencies
         run: npm install
       - name: Build
@@ -21,4 +26,4 @@ jobs:
       - name: Zip
         run: zip -qq -r quicksort-react.zip .next -x ".next/cache/*"
         working-directory: ./quicksort-react
-        
+
