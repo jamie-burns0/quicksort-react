@@ -3,9 +3,15 @@ run-name: quicksort-react-build run by ${{ github.actor }}
 on:
   workflow_dispatch:
     branches: [ "main" ]
+env:
+  S3_BUCKET_NAME : "quicksort-react-bucket"
+  AWS_REGION : "ap-southeast-2"
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -22,4 +28,12 @@ jobs:
       - name: Zip
         run: zip -qq -r quicksort-react.zip .next # -x ".next/cache/*"
         working-directory: ./quicksort-react
-
+      - name: Configure AWS credentials
+        uses: aws-actions/configur-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::508298911387:role/GitHubActionsRole
+          aws-region: ${{ env.AWS_REGION }}
+      - name: Push zip to S3 bucket
+        working-directory: ./quicksort-react
+        run: |
+          aws s3 cp ./quicksort-react.zip s3://${{ env.S3_BUCKET_NAME }}/
