@@ -29,7 +29,7 @@ jobs:
         run: zip -qq -r quicksort-react.zip .next # -x ".next/cache/*"
         working-directory: ./quicksort-react
       - name: Configure AWS credentials
-        uses: aws-actions/configur-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::508298911387:role/GitHubActionsRole
           aws-region: ${{ env.AWS_REGION }}
