@@ -25,6 +25,10 @@ jobs:
       - name: Build
         run: npm run build
         working-directory: ./quicksort-react
+      - name: Clean dependencies
+        run: rm -rf node_modules
+      - name: Install npm prod-only dependencies
+        run: npm install --omit=dev
       - name: Zip
         run: zip -qq -r quicksort-react.zip ./node_modules ./package.json ./.next # -x ".next/cache/*"
         working-directory: ./quicksort-react
