@@ -19,8 +19,7 @@ const QuicksortGenerateDataPanel = ({onGenerateDataButtonClicked}: QuicksortData
 
     return (
         <>
-            <div className='flex flex-row flex-wrap gap-6 pb-6'>
-                <p className="align-middle">
+            <div className='flex flex-row flex-wrap items-center gap-2 pb-6'>
                 <span>Generate </span>
                 <input
                     className='input outline w-16'
@@ -53,7 +52,6 @@ const QuicksortGenerateDataPanel = ({onGenerateDataButtonClicked}: QuicksortData
                     onClick={handleClick}>
                     Generate Data
                 </button>
-                </p>
             </div>
         </>
     );
