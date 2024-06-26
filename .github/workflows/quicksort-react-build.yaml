@@ -31,7 +31,7 @@ jobs:
         working-directory: ${{ env.WORKING_DIR }}
       - name: Install npm prod-only dependencies
         run: npm install --omit=dev
-        working_dir: ${{ env.WORKING_DIR }}
+        working-directory: ${{ env.WORKING_DIR }}
       - name: Zip
         run: zip -qq -r quicksort-react.zip ./node_modules ./package.json ./.next # -x ".next/cache/*"
         working-directory: ${{ env.WORKING_DIR }}
