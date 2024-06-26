@@ -1,7 +1,9 @@
 const quicksort = (dataToSort: number[]): Promise<number[]> => {
 
+    const url: string = process.env.NEXT_PUBLIC_QUICKSORT_API_URL || '';
+
     // Make a POST request to the RESTful API
-    return fetch('http://localhost:8080/quicksort', {
+    return fetch( url, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
