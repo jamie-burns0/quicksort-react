@@ -27,13 +27,13 @@ jobs:
         run: npm run build
         working-directory: ${{ env.WORKING_DIR }}
       - name: Clean dependencies
-        run: rm -rf node_modules
+        run: rm -rf node_modules package-lock.json
         working-directory: ${{ env.WORKING_DIR }}
       - name: Install npm prod-only dependencies
         run: npm install --omit=dev
         working-directory: ${{ env.WORKING_DIR }}
       - name: Zip
-        run: zip -qq -r quicksort-react.zip ./node_modules ./package.json ./.next # -x ".next/cache/*"
+        run: zip -qq -r quicksort-react.zip ./node_modules ./package.json ./package-lock.json ./.next # -x ".next/cache/*"
         working-directory: ${{ env.WORKING_DIR }}
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
