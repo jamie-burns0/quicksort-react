@@ -5,9 +5,10 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "_postbuild": "node postbuild.js",
     "start": "next start",
-    "startProd": "./node_modules/next/dist/bin/next start",
+    "startWithPm2Local": "pm2 startOrRestart ecosystem.config.js --env local",
+    "startWithPm2Dev": "pm2 startOrRestart ecosystem.config.js --env dev",
+    "startWithPm2Prod": "pm2 startOrRestart ecosystem.config.js --env prod",
     "lint": "next lint"
   },
   "dependencies": {
