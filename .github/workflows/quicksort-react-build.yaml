@@ -30,7 +30,7 @@ jobs:
         run: npm prune --omit=dev
         working-directory: ${{ env.WORKING_DIR }}
       - name: Zip
-        run: zip -qq -r quicksort-react.zip ./.next ./node_modules ./package.json ./package-lock.json
+        run: zip -qq -r quicksort-react.zip ./.next ./node_modules ./package.json ./package-lock.json ./ecosystem.config.js
         working-directory: ${{ env.WORKING_DIR }}
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
