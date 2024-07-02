@@ -8,6 +8,7 @@ import QuicksortGenerateDataPanel from "../QuicksortGenerateDataPanel/QuicksortG
 import QuicksortGeneratedDataDisplay from "../QuicksortGeneratedDataDisplay/QuicksortGeneratedDataDisplay";
 import QuicksortSortButtonPanel from "../QuicksortSortButtonPanel/QuicksortSortButtonPanel";
 import QuicksortSortedDataPanel from "../QuicksortSortedDataPanel/QuicksortSortedDataPanel";
+import QuicksortFooter from "../QuicksortFooter/QuicksortFooter";
 import DataSourceChoice from "../DataSourceChoice";
 import GenerateDataParams from "../GenerateDataParams";
 import { quicksort } from "@/app/service/QuicksortService";
@@ -93,6 +94,7 @@ const QuicksortPage = () => {
             {showQuicksortInputPanel() && <QuicksortProvideDataPanel onQuicksortDataProvided={ handleQuicksortDataProvided }/>}
             <QuicksortSortButtonPanel isEnabled={isSortButtonEnabled()} onSortButtonClicked={ handleSortButtonClicked }/>
             {showQuicksortSortedDataPanel() && <QuicksortSortedDataPanel sortedData={sortedData} />}
+            <QuicksortFooter />
         </>
     );
 };
