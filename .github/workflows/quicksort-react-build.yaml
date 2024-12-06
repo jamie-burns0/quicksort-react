@@ -35,7 +35,7 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::508298911387:role/GitHubActionsRole
+          role-to-assume: arn:aws:iam::508298911387:role/GitHubAction-AssumeRoleWithAction
           aws-region: ${{ env.AWS_REGION }}
       - name: Push zip to S3 bucket
         working-directory: ${{ env.WORKING_DIR }}
